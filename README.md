@@ -4,13 +4,14 @@ Introduction :
 
 You will create your first machine in VirtualBox (or UTM if you can’t use VirtualBox) under specific instructions. Then, at the end of this project, you will be able to set up your own operating system while implementing strict rules.
 
-What is a Virtual Machine?
+* What is a Virtual Machine?
+
 A virtual machine is a software capable of installing an Operating System within itself, making the OS think that it is hosted on a real computer. With virtual machines we can create virtual devices that will behave in the same way as physical devices, using their own CPU, memory, network interface and storage. This is possible because the virtual machine is hosted on a physical device, which is the one that provides the hardware resources to the VM. The software program that creates virtual machines is the hypervisor. The hypervisor is responsible for isolating the VM resources from the system hardware and making the necessary implementations so that the VM can use these resources.
 The devices that provide the hardware resources are called host machines or hosts. The different virtual machines that can be assigned to a host are called guests or guest machines. The hypervisor uses a part of the host machine's CPU, storage, etc., and distributes them among the different VMs.
 
 There can be multiple virtual machines on the same host and each of these will be isolated from the rest of the system. Thanks to this, we can run different operating systems on our machine. For each virtual machine, we can run a different operating system distribution. Each of these operating systems will behave as if they were hosted on a physical device, so we will have the same experience when using an OS on a physical machine and on a virtual machine.
 
-How do Virtual Machines work?
+* How do Virtual Machines work ?
 Virtualization allow us share a system with multiple virtual environments. The hypervisor manages the hardware system and separate the physical resources from the virtual environments. The resources are managed followitn the needs, from the host to the guests. When an user from a VM do a task that requires additional resources from the physical environment, the hypervisor manages the request so that the guest OS could access the resources of the physical environment.
 Once we know how they work, it is a good idea to see all the advantages we get from using virtual machines:
 
@@ -19,8 +20,10 @@ They provide an environment in which to safely test unstable programs to see if 
 We get better use of shared resources.
 We reduce costs by reducing physical architecture.
 They are easy to implement because they provide mechanisms to clone a virtual machine to another physical device.
-What is LVM?
-LVM (Logical Volume Manager) is an abstraction layer between a storage device and a file system. We get many advantages from using LVM, but the main advantage is that we have much more flexibility when it comes to managing partitions. Suppose we create four partitions on our storage disk. If for any reason we need to expand the storage of the first three partitions, we will not be able to because there is no space available next to them. In case we want to extend the last partition, we will always have the limit imposed by the disk. In other words, we will not be able to manipulate partitions in a friendly way. Thanks to LVM, all these problems are solved.
+
+* What is LVM?
+
+LVM (Logical Volume Manager) : is an abstraction layer between a storage device and a file system. We get many advantages from using LVM, but the main advantage is that we have much more flexibility when it comes to managing partitions. Suppose we create four partitions on our storage disk. If for any reason we need to expand the storage of the first three partitions, we will not be able to because there is no space available next to them. In case we want to extend the last partition, we will always have the limit imposed by the disk. In other words, we will not be able to manipulate partitions in a friendly way. Thanks to LVM, all these problems are solved.
 By using LVM, we can expand the storage of any partition (now known as a logical volume) whenever we want without worrying about the contiguous space available on each logical volume. We can do this with available storage located on different physical disks (which we cannot do with traditional partitions). We can also move different logical volumes between physical devices. Of course, services and processes will work the same way they always have. But to understand all this, we have to know:
 
 Physical Volume (PV): physical storage device. It can be a hard disk, an SD card, a floppy disk, etc. This device provides us with storage available to use.
@@ -30,18 +33,20 @@ What is AppArmor?
 AppArmor provides Mandatory Access Control (MAC) security. In fact, AppAmor allows the system administrator to restrict the actions that processes can perform. For example, if an installed application can take photos by accessing the camera application, but the administrator denies this privilege, the application will not be able to access the camera application. If a vulnerability occurs (some of the restricted tasks are performed), AppArmor blocks the application so that the damage does not spread to the rest of the system.
 In AppArmor, processes are restricted by profiles. Profiles can work in complain-mode and in enforce-mode. In enforce mode, AppArmor prohibits applications from performing restricted tasks. In complain-mode, AppArmor allows applications to do these tasks, but creates a registry entry to display the complaint.
 
-What is the difference between Apt and Aptitute?
+* What is the difference between Apt and Aptitute ?
+
 In Debian-based OS distributions, the default package manager we can use is dpkg. This tool allows us to install, remove and manage programs on our operating system. However, in most cases, these programs come with a list of dependencies that must be installed for the main program to function properly. One option is to manually install these dependencies. However, APT (Advanced Package Tool), which is a tool that uses dpkg, can be used to install all the necessary dependencies when installing a program. So now we can install a useful program with a single command.
 APT can work with different back-ends and fron-ends to make use of its services. One of them is apt-get, which allows us to install and remove packages. Along with apt-get, there are also many tools like apt-cache to manage programs. In this case, apt-get and apt-cache are used by apt. Thanks to apt we can install .deb programs easily and without worrying about dependencies. But in case we want to use a graphical interface, we will have to use aptitude. Aptitude also does better control of dependencies, allowing the user to choose between different dependencies when installing a program.
 
-How to use SSH?
+* How to use SSH ?
+
 SSH or Secure Shell is a remote administration protocol that allows users to control and modify their servers over the Internet thanks to an authentication mechanism. Provides a mechanism to authenticate a user remotely, transfer data from the client to the host, and return a response to the request made by the client.
 SSH was created as an alternative to Telnet, which does not encrypt the information that is sent. SSH uses encryption techniques to ensure that all client-to-host and host-to-client communications are done in encrypted form. One of the advantages of SSH is that a user using Linux or MacOS can use SSH on their server to communicate with it remotely through their computer's terminal. Once authenticated, that user will be able to use the terminal to work on the server.
 
-The command used to connect to a server with ssh is:
+* The command used to connect to a server with ssh is:
 
 ssh {username}@{IP_host} -p {port}
-There are three different techniques that SSH uses to encrypt:
+* There are three different techniques that SSH uses to encrypt:
 
 Symmetric encryption: a method that uses the same secret key for both encryption and decryption of a message, for both the client and the host. Anyone who knows the password can access the message that has been transmitted.
 Asymmetric encryption: uses two separate keys for encryption and decryption. These are known as the public key and the private key. Together, they form the public-private key pair.
@@ -49,7 +54,8 @@ Hashing: another form of cryptography used by SSH. Hash functions are made in a 
 How to implement UFW with SSH
 UFW (Uncomplicated Firewall) is a software application responsible for ensuring that the system administrator can manage iptables in a simple way. Since it is very difficult to work with iptables, UFW provides us with an interface to modify the firewall of our device (netfilter) without compromising security. Once we have UFW installed, we can choose which ports we want to allow connections, and which ports we want to close. This will also be very useful with SSH, greatly improving all security related to communications between devices.
 
-What is cron and what is wall?
+* What is cron and what is wall?
+
 Once we know a little more about how to build a server inside a Virtual Machine (remember that you also have to look in other pages apart from this README), we will see two commands that will be very helpful in case of being system administrators. These commands are:
 
 Cron: Linux task manager that allows us to execute commands at a certain time. We can automate some tasks just by telling cron what command we want to run at a specific time. For example, if we want to restart our server every day at 4:00 am, instead of having to wake up at that time, cron will do it for us.
@@ -57,188 +63,194 @@ Wall: command used by the root user to send a message to all users currently con
 Installation
 At the time of writing, the latest stable version of Debian is Debian 10 Buster. Watch bonus installation walkthrough (no audio) here.
 
-sudo
-Step 1: Installing sudo
+* sudo
+
+* Step 1: Installing sudo :
 Switch to root and its environment via su -.
 
 $ su -
 Password:
 #
-Install sudo via apt install sudo.
-
+* Install sudo via apt install sudo.
 # apt install sudo
-Verify whether sudo was successfully installed via dpkg -l | grep sudo.
 
+* Verify whether sudo was successfully installed via dpkg -l | grep sudo.
 # dpkg -l | grep sudo
-Step 2: Adding User to sudo Group
-Add user to sudo group via adduser <username> sudo.
 
+* Step 2: Adding User to sudo Group :
+
+Add user to sudo group via adduser <username> sudo.
 # adduser <username> sudo
 Alternatively, add user to sudo group via usermod -aG sudo <username>.
-
 # usermod -aG sudo <username>
-Verify whether user was successfully added to sudo group via getent group sudo.
 
+* Verify whether user was successfully added to sudo group via getent group sudo.
 $ getent group sudo
 reboot for changes to take effect, then log in and verify sudopowers via sudo -v.
-
 # reboot
+
 <--->
+
 Debian GNU/Linux 10 <hostname> tty1
 
 <hostname> login: <username>
 Password: <password>
+  
 <--->
+  
 $ sudo -v
 [sudo] password for <username>: <password>
-Step 3: Running root-Privileged Commands
+  
+* Step 3: Running root-Privileged Commands :
 From here on out, run root-privileged commands via prefix sudo. For instance:
-
 $ sudo apt update
-Step 4: Configuring sudo
+
+* Step 4: Configuring sudo :
 Configure sudo via sudo vi /etc/sudoers.d/<filename>. <filename> shall not end in ~ or contain ..
-
 $ sudo vi /etc/sudoers.d/<filename>
-To limit authentication using sudo to 3 attempts (defaults to 3 anyway) in the event of an incorrect password, add below line to the file.
 
+* To limit authentication using sudo to 3 attempts (defaults to 3 anyway) in the event of an incorrect password, add below line to the file.
 Defaults        passwd_tries=3
-To add a custom error message in the event of an incorrect password:
 
+* To add a custom error message in the event of an incorrect password:
 Defaults        badpass_message="<custom-error-message>"
-To log all sudo commands to /var/log/sudo/<filename>:
 
+* To log all sudo commands to /var/log/sudo/<filename>:
 $ sudo mkdir /var/log/sudo
+
 <~~~>
 Defaults        logfile="/var/log/sudo/<filename>"
 <~~~>
-To archive all sudo inputs & outputs to /var/log/sudo/:
+  
+* To archive all sudo inputs & outputs to /var/log/sudo/:
 
 Defaults        log_input,log_output
 Defaults        iolog_dir="/var/log/sudo"
-To require TTY:
 
+* To require TTY:
 Defaults        requiretty
-To set sudo paths to /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin:
+
+* To set sudo paths to /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin:
 
 Defaults        secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin"
 SSH
-Step 1: Installing & Configuring SSH
+* Step 1: Installing & Configuring SSH
 Install openssh-server via sudo apt install openssh-server.
 
 $ sudo apt install openssh-server
-Verify whether openssh-server was successfully installed via dpkg -l | grep ssh.
+* Verify whether openssh-server was successfully installed via dpkg -l | grep ssh.
 
 $ dpkg -l | grep ssh
-Configure SSH via sudo vi /etc/ssh/sshd_config.
+* Configure SSH via sudo vi /etc/ssh/sshd_config.
 
 $ sudo vi /etc/ssh/sshd_config
-To set up SSH using Port 4242, replace below line:
+* To set up SSH using Port 4242, replace below line:
 
 13 #Port 22
 with:
 
 13 Port 4242
-To disable SSH login as root irregardless of authentication mechanism, replace below line
+* To disable SSH login as root irregardless of authentication mechanism, replace below line
 
 32 #PermitRootLogin prohibit-password
 with:
 
 32 PermitRootLogin no
-Check SSH status via sudo service ssh status.
+* Check SSH status via sudo service ssh status.
 
 $ sudo service ssh status
-Alternatively, check SSH status via systemctl status ssh.
+* Alternatively, check SSH status via systemctl status ssh.
 
 $ systemctl status ssh
-Step 2: Installing & Configuring UFW
+* Step 2: Installing & Configuring UFW
 Install ufw via sudo apt install ufw.
 
 $ sudo apt install ufw
-Verify whether ufw was successfully installed via dpkg -l | grep ufw.
+* Verify whether ufw was successfully installed via dpkg -l | grep ufw.
 
 $ dpkg -l | grep ufw
-Enable Firewall via sudo ufw enable.
+* Enable Firewall via sudo ufw enable.
 
 $ sudo ufw enable
-Allow incoming connections using Port 4242 via sudo ufw allow 4242.
+* Allow incoming connections using Port 4242 via sudo ufw allow 4242.
 
 $ sudo ufw allow 4242
-Check UFW status via sudo ufw status.
+* Check UFW status via sudo ufw status.
 
 $ sudo ufw status
-Step 3: Connecting to Server via SSH
+* Step 3: Connecting to Server via SSH
 SSH into your virtual machine using Port 4242 via ssh <username>@<ip-address> -p 4242.
 
 $ ssh <username>@<ip-address> -p 4242
-Terminate SSH session at any time via logout.
+* Terminate SSH session at any time via logout.
 
 $ logout
-Alternatively, terminate SSH session via exit.
+* Alternatively, terminate SSH session via exit.
 
 $ exit
 User Management
-Step 1: Setting Up a Strong Password Policy
+* Step 1: Setting Up a Strong Password Policy
 Password Age
-Configure password age policy via sudo vi /etc/login.defs.
+* Configure password age policy via sudo vi /etc/login.defs.
 
 $ sudo vi /etc/login.defs
-To set password to expire every 30 days, replace below line
+* To set password to expire every 30 days, replace below line
 
 160 PASS_MAX_DAYS   99999
 with:
 
 160 PASS_MAX_DAYS   30
-To set minimum number of days between password changes to 2 days, replace below line
+* To set minimum number of days between password changes to 2 days, replace below line
 
 161 PASS_MIN_DAYS   0
 with:
 
 161 PASS_MIN_DAYS   2
-To send user a warning message 7 days (defaults to 7 anyway) before password expiry, keep below line as is.
+* To send user a warning message 7 days (defaults to 7 anyway) before password expiry, keep below line as is.
 
 162 PASS_WARN_AGE   7
 Password Strength
-Secondly, to set up policies in relation to password strength, install the libpam-pwquality package.
+* Secondly, to set up policies in relation to password strength, install the libpam-pwquality package.
 
 $ sudo apt install libpam-pwquality
-Verify whether libpam-pwquality was successfully installed via dpkg -l | grep libpam-pwquality.
+* Verify whether libpam-pwquality was successfully installed via dpkg -l | grep libpam-pwquality.
 
 $ dpkg -l | grep libpam-pwquality
-Configure password strength policy via sudo vi /etc/pam.d/common-password, specifically the below line:
+* Configure password strength policy via sudo vi /etc/pam.d/common-password, specifically the below line:
 
 $ sudo vi /etc/pam.d/common-password
 <~~~>
 25 password        requisite                       pam_pwquality.so retry=3
 <~~~>
-To set password minimum length to 10 characters, add below option to the above line.
+* To set password minimum length to 10 characters, add below option to the above line.
 
 minlen=10
-To require password to contain at least an uppercase character and a numeric character:
+* To require password to contain at least an uppercase character and a numeric character:
 
 ucredit=-1 dcredit=-1
-To set a maximum of 3 consecutive identical characters:
+* To set a maximum of 3 consecutive identical characters:
 
 maxrepeat=3
-To reject the password if it contains <username> in some form:
+* To reject the password if it contains <username> in some form:
 
 reject_username
-To set the number of changes required in the new password from the old password to 7:
+* To set the number of changes required in the new password from the old password to 7:
 
 difok=7
-To implement the same policy on root:
+* To implement the same policy on root:
 
 enforce_for_root
 Finally, it should look like the below:
 
 password        requisite                       pam_pwquality.so retry=3 minlen=10 ucredit=-1 dcredit=-1 maxrepeat=3 reject_username difok=7 enforce_for_root
-Step 2: Creating a New User
+* Step 2: Creating a New User
 Create new user via sudo adduser <username>.
 
 $ sudo adduser <username>
-Verify whether user was successfully created via getent passwd <username>.
+* Verify whether user was successfully created via getent passwd <username>.
 
 $ getent passwd <username>
-Verify newly-created user's password expiry information via sudo chage -l <username>.
+* Verify newly-created user's password expiry information via sudo chage -l <username>.
 
 $ sudo chage -l <username>
 Last password change					: <last-password-change-date>
@@ -248,7 +260,8 @@ Account expires						: never
 Minimum number of days between password change		: <PASS_MIN_DAYS>
 Maximum number of days between password change		: <PASS_MAX_DAYS>
 Number of days of warning before password expires	: <PASS_WARN_AGE>
-Step 3: Creating a New Group
+
+* Step 3: Creating a New Group
 Create new user42 group via sudo addgroup user42.
 
 $ sudo addgroup user42
@@ -292,12 +305,13 @@ You have to create a simple script called monitoring.sh It must be developed in 
 
 You can find the script monitoring.sh in this repository.
 
-Bonus
+--> Bonus :
+
 #1: Installation
 Watch bonus installation walkthrough (no audio) here.
 
 #2: Linux Lighttpd MariaDB PHP (LLMP) Stack
-Step 1: Installing Lighttpd
+* Step 1: Installing Lighttpd
 Install lighttpd via sudo apt install lighttpd.
 
 $ sudo apt install lighttpd
@@ -473,8 +487,3 @@ Then, retrieve the signature from the ".vdi" file (or ".qcow2 for UTM’users) o
 This is an example of what kind of output you will get:
 
 • 6e657c4619944be17df3c31faa030c25e43e40af
-
-Evalknowledge.txt
-Little Q&A from Subject and whattocheck as evaluator. You can find it in this repository.
-
-I think it's done for now. I highly recommend repeating the installation process several times, if possible, in order to remember and understand everything well. Especially if this is your first time working both Linux and a virtual machine.
